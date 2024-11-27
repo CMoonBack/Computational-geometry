@@ -1,0 +1,5 @@
+{
+  "import": [
+    "CMoonBack/computational-geometry/lib"
+  ]
+}
