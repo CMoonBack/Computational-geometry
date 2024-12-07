@@ -2,7 +2,7 @@
 //if a certain number is less than eps, then this number is 0
 let eps : Double = 0.00000001
 fn iszero(x : Double) -> Bool {
-  if (x > 0 && x < eps) || (x < 0 && -x < eps) || x == 0{
+  if x.abs() < eps{
     true
   } else {
     false
@@ -10,19 +10,11 @@ fn iszero(x : Double) -> Bool {
 }
 
 fn max(a : Double, b : Double) -> Double {
-  if a > b {
-    a
-  } else {
-    b
-  }
+  @math.maximum(a, b)
 }
 
 fn min(a : Double, b : Double) -> Double {
-  if a < b {
-    a
-  } else {
-    b
-  }
+  @math.minimum(a, b)
 }
 
 struct Point {
@@ -79,8 +71,7 @@ struct Line {
 /// }
 /// ```
 fn mul(p1 : Point, p2 : Point, p0 : Point) -> Double {
-  let ans : Double = (p1.x - p0.x) * (p2.y - p0.y) - (p2.x - p0.x) * (p1.y - p0.y)
-  ans
+  (p1.x - p0.x) * (p2.y - p0.y) - (p2.x - p0.x) * (p1.y - p0.y)
 }
 
 /// Calculates the dot product of two vectors formed by three points. The first
@@ -119,9 +110,7 @@ fn mul(p1 : Point, p2 : Point, p0 : Point) -> Double {
 /// }
 /// ```
 fn dot(p1 : Point, p2 : Point, p0 : Point) -> Double {
-  let mut ans : Double = 0
-  ans = (p1.x - p0.x) * (p2.x - p0.x) + (p1.y - p0.y) * (p2.y - p0.y)
-  ans
+  (p1.x - p0.x) * (p2.x - p0.x) + (p1.y - p0.y) * (p2.y - p0.y)
 }
 
 /// Calculates the Euclidean distance between two points in a 2D plane using the
@@ -485,8 +474,8 @@ fn isIntersected(s1 : Point, e1 : Point, s2 : Point, e2 : Point) -> Bool {
   let f2 : Bool = max(s2.x, e2.x) >= min(s1.x, e1.x)
   let f3 : Bool = max(s1.y, e1.y) >= min(s2.y, e2.y)
   let f4 : Bool = max(s2.y, e2.y) >= min(s1.y, e1.y)
-  let f5 : Bool = mul(s2, e1, s1) * mul(e1, e2, s1) > 0
-  let f6 : Bool = mul(s1, e2, s2) * mul(e2, e1, s2) > 0
+  let f5 : Bool = mul(s2, e1, s1) * mul(e1, e2, s1) <= eps
+  let f6 : Bool = mul(s1, e2, s2) * mul(e2, e1, s2) <= eps
   f1 && f2 && f3 && f4 && f5 && f6
 }
 
@@ -751,17 +740,18 @@ pub fn new_line(
 }
 
 fn main {
-  let a = new_point(1, 1)
-  let b = new_point(2, 2)
-  let c = new_point(3, 3)
-  let d = new_point(3, 0)
-  let num : Double = eps / 2
-  let l1 = new_line(a, c)
-  println(iszero(num))
-  println(mul(a, b, c))
-  println(dot(a, b, c))
-  println(distance(a, d))
-  println(dots_inline(a, b, c))
-  println(dot_online_in(a, l1))
-  println(dot_online_ex(a, l1))
+  let a = new_point(0, 0)
+  let b = new_point(1, 1)
+  let c = new_point(0, 0)
+  let d = new_point(2, 2)
+  println(isIntersected(a, b, c, d))
+  // let num : Double = eps / 2
+  // let l1 = new_line(a, c)
+  // println(iszero(num))
+  // println(mul(a, b, c))
+  // println(dot(a, b, c))
+  // println(distance(a, d))
+  // println(dots_inline(a, b, c))
+  // println(dot_online_in(a, l1))
+  // println(dot_online_ex(a, l1))
 }
