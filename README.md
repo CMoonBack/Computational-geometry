@@ -1,8 +1,10 @@
 # Computational Geometry library
 
-This repository contains a library of computational geometry implemented in Moonbit. The library provides a variety of correlation operations for calculating geometry, and is expected to cover the following areas: point-line correlation, polygon correlation, triangle correlation, circle correlation, convex hull correlation, 3D geometric correlation, etc.
-
-At present, the algorithm of point and line correlation has been implemented, including the algorithm of some relationships between points and lines and line segments.
+This repository contains a library of computational geometry implemented in Moonbit. 
+The library provides a variety of correlation operations for calculating geometry, 
+and is expected to cover the following areas: point-line correlation, 
+polygon correlation, triangle correlation, circle correlation, 
+convex hull correlation, 3D geometric correlation, etc.
 
 ## Features
 
