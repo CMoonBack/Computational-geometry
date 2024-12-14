@@ -1,8 +1,8 @@
 {
   "name": "CMoonBack/computational-geometry",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "readme": "README.md",
-  "repository": "",
+  "repository": "https://github.com/CMoonBack/Computational-geometry",
   "license": "Apache-2.0",
   "keywords": ["math", "geometry"],
   "description": "computational geometry library in moonbit",
