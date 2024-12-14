@@ -18,8 +18,8 @@ fn min(a : Double, b : Double) -> Double {
 }
 
 struct Point {
-  x : Double
-  y : Double
+  mut x : Double
+  mut y : Double
 }
 
 struct Line {
