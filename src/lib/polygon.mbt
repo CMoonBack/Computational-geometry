@@ -92,52 +92,43 @@ fn is_convex(n : Int, p : Array[Point]) -> Int {
   Int::lor(s[1], s[2])
 }
 
-/// Determines if a line segment lies completely inside a polygon. A line segment
-/// is considered inside if both its endpoints are inside the polygon and it
-/// doesn't intersect with any of the polygon's edges (except possibly at the
-/// endpoints).
+/// Determines whether a point lies inside a convex polygon using the cross
+/// product method. A point is considered inside if it lies on the same side of
+/// all edges of the polygon.
 ///
 /// Parameters:
 ///
-/// * `segment_start` : The starting point of the line segment.
-/// * `segment_end` : The ending point of the line segment.
+/// * `point` : The point to test for containment, represented as a `Point`
+/// structure with x and y coordinates.
 /// * `vertex_count` : The number of vertices in the polygon.
-/// * `vertices` : An array of points representing the vertices of the polygon in
-/// either clockwise or counterclockwise order.
+/// * `vertices` : An array of points representing the vertices of the convex
+/// polygon in either clockwise or counterclockwise order.
 ///
 /// Returns an integer value:
 ///
-/// * `1` if the line segment lies completely inside the polygon
-/// * `0` if any part of the line segment lies outside the polygon or intersects
-/// with the polygon's edges
+/// * `1` if the point lies inside the convex polygon
+/// * `0` if the point lies outside the convex polygon or on its boundary
 ///
 /// Example:
 ///
 /// ```moonbit
-/// test "segment_inside_polygon/inside" {
+/// test "point_inside_convex/inside" {
 ///   let square = [
 ///     new_point(0.0, 0.0),
 ///     new_point(2.0, 0.0),
 ///     new_point(2.0, 2.0),
 ///     new_point(0.0, 2.0),
 ///   ]
-///   let start = new_point(0.5, 0.5)
-///   let end = new_point(1.5, 1.5)
-///   // A diagonal line segment inside a square
-///   inspect!(segment_inside_polygon(start, end, 4, square), content="1")
+///   let point = new_point(1.0, 1.0)
+///   // Point is inside the convex square
+///   inspect!(point_inside_convex(point, 4, square), content="1")
 /// }
 /// 
-/// test "segment_inside_polygon/intersecting" {
-///   let square = [
-///     new_point(0.0, 0.0),
-///     new_point(2.0, 0.0),
-///     new_point(2.0, 2.0),
-///     new_point(0.0, 2.0),
-///   ]
-///   let start = new_point(1.0, 1.0)
-///   let end = new_point(3.0, 1.0)
-///   // A line segment that intersects the square's edge
-///   inspect!(segment_inside_polygon(start, end, 4, square), content="0")
+/// test "point_inside_convex/outside" {
+///   let triangle = [new_point(0.0, 0.0), new_point(2.0, 0.0), new_point(1.0, 2.0)]
+///   let point = new_point(3.0, 1.0)
+///   // Point is outside the convex triangle
+///   inspect!(point_inside_convex(point, 3, triangle), content="0")
 /// }
 /// ```
 fn point_inside_convex(q : Point, n : Int, p : Array[Point]) -> Int {
