@@ -22,9 +22,19 @@ At present, the algorithm of point and line correlation has been implemented, in
 - **point to line**: Calculates the projection point of a given point onto a line defined by two points.
 - **point to line segment**: Calculates the projection point of a given point onto a line segment.
 
+#### Polygon correlation
+
+- **is sign**: Check the sign of floating-point numbers.
+- **is convex**: Check whether a polygon is convex.
+- **point inside convex**: Checks whether a point is inside a convex polygon.
+- **point inside polygon**: Checks whether a point is inside a polygon.
+- **segment inside polygon**: Checks whether a line segment is inside a polygon.
+
 ## Usages
 
-For how to use,see the [examples](https://github.com/Moonbit-Labs/computational_geometry/src/lib) in the repository.
+For how to use,see the [core](https://github.com/CMoonBack/Computational-geometry/tree/main/src/lib) in the repository.
+
+Specific usages are being written.
 
 ## License
 
