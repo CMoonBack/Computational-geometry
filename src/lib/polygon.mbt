@@ -1,7 +1,10 @@
+///|
 let offset : Int = 10000
+
+///|
 let maxn : Int = 1000
 
-/// Determines the sign of a double-precision floating-point number, taking into
+///| Determines the sign of a double-precision floating-point number, taking into
 /// account a small epsilon value to handle floating-point arithmetic
 /// imprecision.
 ///
@@ -41,7 +44,7 @@ fn is_sign(x : Double) -> Int {
   }
 }
 
-/// Determines whether a polygon is convex by examining the cross products of
+///| Determines whether a polygon is convex by examining the cross products of
 /// consecutive vertices.
 ///
 /// Parameters:
@@ -92,7 +95,7 @@ fn is_convex(n : Int, p : Array[Point]) -> Int {
   Int::lor(s[1], s[2])
 }
 
-/// Determines whether a point lies inside a convex polygon using the cross
+///| Determines whether a point lies inside a convex polygon using the cross
 /// product method. A point is considered inside if it lies on the same side of
 /// all edges of the polygon.
 ///
@@ -140,7 +143,7 @@ fn point_inside_convex(q : Point, n : Int, p : Array[Point]) -> Int {
   Int::lor(s[1], s[2])
 }
 
-/// Determines whether a point lies inside a polygon using the ray casting
+///| Determines whether a point lies inside a polygon using the ray casting
 /// algorithm (also known as the even-odd rule). A point is considered inside if
 /// a ray cast from the point in any direction crosses an odd number of polygon
 /// edges.
@@ -183,31 +186,28 @@ fn point_inside_convex(q : Point, n : Int, p : Array[Point]) -> Int {
 fn point_inside_polygon(q : Point, n : Int, p : Array[Point]) -> Int {
   let q2 : Point = new_point(q.x + 1, q.y)
   let mut count = 0
-  let mut i = 0
-  while i < n {
-    count = 0
-    i = 0
-    while i < n {
-      let f1 : Bool = iszero(mul(q, p[i], p[(i + 1) % n]))
-      let f2 : Bool = (p[i].x - q.x) * (p[(i + 1) % n].x - q.x) < eps
-      let f3 : Bool = (p[i].y - q.y) * (p[(i + 1) % n].y - q.y) < eps
-      if f1 && f2 && f3 {
-        ignore(2)
-      } else if iszero(mul(q, q2, p[i])) {
-        break
-      } else {
-        let f1 : Bool = mul(q, p[i], q2) * mul(q, p[(i + 1) % n], q2) < -eps
-        let f2 : Bool = mul(p[i], q, p[(i + 1) % n]) * mul(p[i], q2, p[(i + 1) % n]) < -eps
-        if f1 && f2 {
-          count = count + 1
-        }
+  for i = 0; i < n; i = i + 1 {
+    let f1 : Bool = iszero(mul(q, p[i], p[(i + 1) % n]))
+    let f2 : Bool = (p[i].x - q.x) * (p[(i + 1) % n].x - q.x) < eps
+    let f3 : Bool = (p[i].y - q.y) * (p[(i + 1) % n].y - q.y) < eps
+    if f1 && f2 && f3 {
+      return 1 // 点在多边形的边上
+    } else if iszero(mul(q, q2, p[i])) {
+      continue
+    } else {
+      let f1 : Bool = mul(q, p[i], q2) * mul(q, p[(i + 1) % n], q2) < -eps
+      let f2 : Bool = mul(p[i], q, p[(i + 1) % n]) *
+        mul(p[i], q2, p[(i + 1) % n]) <
+        -eps
+      if f1 && f2 {
+        count = count + 1
       }
     }
   }
   Int::land(count, 1)
 }
 
-/// Determines if a line segment lies completely inside a polygon. A line segment
+///| Determines if a line segment lies completely inside a polygon. A line segment
 /// is considered inside if both its endpoints are inside the polygon and it
 /// doesn't intersect with any of the polygon's edges (except possibly at the
 /// endpoints).
@@ -255,35 +255,42 @@ fn point_inside_polygon(q : Point, n : Int, p : Array[Point]) -> Int {
 ///   inspect!(segment_inside_polygon(start, end, 4, square), content="0")
 /// }
 /// ```
-fn segment_inside_polygon(l1 : Point, l2 : Point, n : Int, p : Array[Point]) -> Int {
+fn segment_inside_polygon(
+  l1 : Point,
+  l2 : Point,
+  n : Int,
+  p : Array[Point]
+) -> Int {
   let tmp1 : Array[Point] = Array::make(maxn, new_point(0, 0))
   let tmp2 : Point = new_point(0, 0)
   let mut k : Int = 0
   if point_inside_polygon(l1, n, p) == 0 || point_inside_polygon(l2, n, p) == 0 {
-    ignore(0)
-  }
-  for i = 0; i < n; i = i + 1 {
-    if opposite_side(l1, l2, new_line(p[i], p[(i + 1) % n])) == true && opposite_side(p[i], p[(i + 1) % n], new_line(l1, l2)) == true {
-      ignore(0)
-    } else if dot_online_in(l1, new_line(p[i], p[(i + 1) % n])) == true {
-      tmp1[k] = l1
-      k = k + 1
-    } else if dot_online_in(l2, new_line(p[i], p[(i + 1) % n])) == true {
-      tmp1[k] = l2
-      k = k + 1
-    } else if dot_online_in(p[i], new_line(l1, l2)) {
-      tmp1[k] = p[i]
-      k = k + 1
-    }
-  }
-  for i = 0; i < k; i = i + 1 {
-    for j = i + 1; j < k; j = j + 1 {
-      tmp2.x = (tmp1[i].x + tmp1[j].x) / 2
-      tmp2.y = (tmp1[i].y + tmp1[j].y) / 2
-      if (point_inside_polygon(tmp2, n, p) == 0) {
-        ignore(0)
+    0
+  } else {
+    for i = 0; i < n; i = i + 1 {
+      if opposite_side(l1, l2, new_line(p[i], p[(i + 1) % n])) == true &&
+        opposite_side(p[i], p[(i + 1) % n], new_line(l1, l2)) == true {
+        return 0
+      } else if dot_online_in(l1, new_line(p[i], p[(i + 1) % n])) == true {
+        tmp1[k] = l1
+        k = k + 1
+      } else if dot_online_in(l2, new_line(p[i], p[(i + 1) % n])) == true {
+        tmp1[k] = l2
+        k = k + 1
+      } else if dot_online_in(p[i], new_line(l1, l2)) {
+        tmp1[k] = p[i]
+        k = k + 1
       }
     }
+    for i = 0; i < k; i = i + 1 {
+      for j = i + 1; j < k; j = j + 1 {
+        tmp2.x = (tmp1[i].x + tmp1[j].x) / 2
+        tmp2.y = (tmp1[i].y + tmp1[j].y) / 2
+        if point_inside_polygon(tmp2, n, p) == 0 {
+          return 0
+        }
+      }
+    }
+    1
   }
-  1
 }
