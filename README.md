@@ -32,6 +32,12 @@ convex hull correlation, 3D geometric correlation, etc.
 - **point inside polygon**: Checks whether a point is inside a polygon.
 - **segment inside polygon**: Checks whether a line segment is inside a polygon.
 
+#### Triangle correlation
+
+- **circumcenter**: Calculates the circumcenter of a triangle.
+- **incenter**: Calculates the incenter of a triangle.
+- **perpencenter**: Calculates the perpencenter of a triangle.
+
 ## Usages
 
 For how to use,see the [core](https://github.com/CMoonBack/Computational-geometry/tree/main/src/lib) in the repository.

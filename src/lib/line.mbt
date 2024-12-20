@@ -23,7 +23,7 @@ struct Point {
 }
 
 struct Line {
-  a : Point
+  mut a : Point
   b : Point
 }
 
