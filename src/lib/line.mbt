@@ -583,6 +583,47 @@ fn p_to_line(p : Point, l1 : Point, l2 : Point) -> Point {
   intersection(p, r, l1, l2)
 }
 
+///|
+/// Calculates the shortest distance from a point to a line defined by two
+/// points. Uses vector operations and the intersection point to determine the
+/// perpendicular distance.
+///
+/// Parameters:
+///
+/// * `point` : The point from which to calculate the distance.
+/// * `line_start` : The first point defining the line.
+/// * `line_end` : The second point defining the line.
+///
+/// Returns the perpendicular distance from the point to the line.
+///
+/// Examples:
+///
+/// ```moonbit
+/// test "dis_p_to_line/vertical" {
+///   let point = new_point(2.0, 1.0)
+///   let line_start = new_point(0.0, 0.0)
+///   let line_end = new_point(0.0, 2.0)
+///   // Distance from point to vertical line
+///   inspect!(dis_p_to_line(point, line_start, line_end), content="2.0")
+/// }
+/// 
+/// test "dis_p_to_line/diagonal" {
+///   let point = new_point(0.0, 2.0)
+///   let line_start = new_point(0.0, 0.0)
+///   let line_end = new_point(2.0, 2.0)
+///   // Distance from point to diagonal line (45 degrees)
+///   inspect!(dis_p_to_line(point, line_start, line_end), content="1.414214")
+/// }
+/// ```
+fn dis_p_to_line(p : Point, l1 : Point, l2 : Point) -> Double {
+  let mut rx : Double = p.x
+  let mut ry : Double = p.y
+  rx = rx + l1.y - l2.y
+  ry = ry + l2.x - l1.x
+  let r : Point = new_point(rx, ry)
+  let ans : Point = intersection(p, r, l1, l2)
+  distance(p, ans)
+}
 /// Calculates the closest point on a line segment to a given point. The result
 /// is either the projection of the point onto the line segment (if the
 /// projection falls within the segment) or one of the segment's endpoints (if

@@ -22,6 +22,7 @@ convex hull correlation, 3D geometric correlation, etc.
 - **intersected**: Checks whether two line segments intersect.
 - **intersected point**: Calculates the intersection point of two line segments.
 - **point to line**: Calculates the projection point of a given point onto a line defined by two points.
+- **distance of point to line**: Calculates the distance between a point and a line.
 - **point to line segment**: Calculates the projection point of a given point onto a line segment.
 
 #### Polygon correlation
@@ -37,6 +38,20 @@ convex hull correlation, 3D geometric correlation, etc.
 - **circumcenter**: Calculates the circumcenter of a triangle.
 - **incenter**: Calculates the incenter of a triangle.
 - **perpencenter**: Calculates the perpencenter of a triangle.
+
+#### Circle correlation
+
+- **intersect_line_circle**: Checks whether a line intersects with a circle.
+
+- **intersect_segment_circle**: Checks whether a line segment intersects with a circle.
+
+- **intersect_circle_circle**: Checks whether two circles intersect.
+
+- **dot_to_circle**: Checks the closest point on a circle to a given point.
+
+- **intersection_line_circle**: Calculates the intersection points of a line and a circle.
+
+- **intersection_circle_circle**: Calculates the intersection points of two circles.
 
 ## Usages
 
