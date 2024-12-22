@@ -42,23 +42,16 @@ convex hull correlation, 3D geometric correlation, etc.
 #### Circle correlation
 
 - **intersect_line_circle**: Checks whether a line intersects with a circle.
-
 - **intersect_segment_circle**: Checks whether a line segment intersects with a circle.
-
 - **intersect_circle_circle**: Checks whether two circles intersect.
-
 - **dot_to_circle**: Checks the closest point on a circle to a given point.
-
 - **intersection_line_circle**: Calculates the intersection points of a line and a circle.
-
 - **intersection_circle_circle**: Calculates the intersection points of two circles.
 
 #### Sphere correlation
 
 - **angle**: Give the latitude and longitude of the earth and calculate the central angle of the circle.
-
 - **line_dist**: Knowing the latitude and longitude, calculate the straight-line distance between two points on the earth.
-
 - **sphere_dist**: Knowing the latitude and longitude, calculate the spherical distance between two points on the earth.
 
 ## Usages
