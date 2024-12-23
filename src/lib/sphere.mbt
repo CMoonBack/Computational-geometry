@@ -32,16 +32,24 @@
 /// }
 /// ```
 fn angle(lng1 : Double, lat1 : Double, lng2 : Double, lat2 : Double) -> Double {
-    let mut dlng : Double = Double::abs(lng2 - lng1) * @math.PI / 180.0
-    while dlng >= @math.PI * 2.0 {
-        dlng -= @math.PI * 2.0
-    }
-    if dlng > @math.PI {
-        dlng = @math.PI * 2.0 - dlng
-    }
-    let lat11 : Double = lat1 * @math.PI / 180.0
-    let lat22 : Double = lat2 * @math.PI / 180.0
-    @math.acos(@math.sin(lat11) * @math.sin(lat22) + @math.cos(lat11) * @math.cos(lat22) * @math.cos(dlng))
+  let mut dlng : Double = Double::abs(lng2 - lng1) * @math.PI / 180.0
+  while dlng >= @math.PI * 2.0 {
+    dlng -= @math.PI * 2.0
+  }
+  if dlng > @math.PI {
+    dlng = @math.PI * 2.0 - dlng
+  }
+  let lat11 : Double = lat1 * @math.PI / 180.0
+  let lat22 : Double = lat2 * @math.PI / 180.0
+  let mut t = @math.sin(lat11) * @math.sin(lat22) +
+    @math.cos(lat11) * @math.cos(lat22) * @math.cos(dlng)
+  // 将 t 限制在 [-1, 1] 范围内
+  if t > 1.0 {
+    t = 1.0
+  } else if t < -1.0 {
+    t = -1.0
+  }
+  @math.acos(t)
 }
 
 ///|
@@ -76,17 +84,31 @@ fn angle(lng1 : Double, lat1 : Double, lng2 : Double, lat2 : Double) -> Double {
 ///   inspect!(Double::abs(dist - 2.0 * r) < 0.001, content="true")
 /// }
 /// ```
-fn line_dist(r : Double, lng1 : Double, lat1 : Double, lng2 : Double, lat2 : Double) -> Double {
-    let mut dlng : Double = Double::abs(lng2 - lng1) * @math.PI / 180.0
-    while dlng >= @math.PI * 2.0 {
-        dlng -= @math.PI * 2.0
-    }
-    if dlng > @math.PI {
-        dlng = @math.PI * 2.0 - dlng
-    }
-    let lat11 : Double = lat1 * @math.PI / 180.0
-    let lat22 : Double = lat2 * @math.PI / 180.0
-    r * Double::sqrt(2.0 - 2.0 * (@math.cos(lat11) * @math.cos(lat22) * @math.cos(dlng) + @math.sin(lat11) * @math.sin(lat22)))
+fn line_dist(
+  r : Double,
+  lng1 : Double,
+  lat1 : Double,
+  lng2 : Double,
+  lat2 : Double
+) -> Double {
+  let mut dlng : Double = Double::abs(lng2 - lng1) * @math.PI / 180.0
+  while dlng >= @math.PI * 2.0 {
+    dlng -= @math.PI * 2.0
+  }
+  if dlng > @math.PI {
+    dlng = @math.PI * 2.0 - dlng
+  }
+  let lat11 : Double = lat1 * @math.PI / 180.0
+  let lat22 : Double = lat2 * @math.PI / 180.0
+  r *
+  Double::sqrt(
+    2.0 -
+    2.0 *
+    (
+      @math.cos(lat11) * @math.cos(lat22) * @math.cos(dlng) +
+      @math.sin(lat11) * @math.sin(lat22)
+    ),
+  )
 }
 
 ///|
@@ -117,6 +139,12 @@ fn line_dist(r : Double, lng1 : Double, lat1 : Double, lng2 : Double, lat2 : Dou
 ///   inspect!(dist > 5569.0 && dist < 5571.0, content="true")
 /// }
 /// ```
-fn sphere_dist(r : Double, lng1 : Double, lat1 : Double, lng2 : Double, lat2 : Double) -> Double {
-    r * angle(lng1, lat1, lng2, lat2)
+fn sphere_dist(
+  r : Double,
+  lng1 : Double,
+  lat1 : Double,
+  lng2 : Double,
+  lat2 : Double
+) -> Double {
+  r * angle(lng1, lat1, lng2, lat2)
 }
