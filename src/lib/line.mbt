@@ -793,7 +793,7 @@ pub fn new_line(
   a_ : Point,
   b_ : Point
 ) -> Line {
-  let ans = {a : a_, b : b_}
+  let ans : Line = {a : a_, b : b_}
   ans
 }
 

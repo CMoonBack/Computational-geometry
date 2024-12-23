@@ -8,6 +8,8 @@ convex hull correlation, 3D geometric correlation, etc.
 
 ## Features
 
+### 2D geometric
+
 #### Point and line correlation
 
 - **cross product**: Calculates the cross product of two vectors formed by three points.
@@ -53,6 +55,19 @@ convex hull correlation, 3D geometric correlation, etc.
 - **angle**: Give the latitude and longitude of the earth and calculate the central angle of the circle.
 - **line_dist**: Knowing the latitude and longitude, calculate the straight-line distance between two points on the earth.
 - **sphere_dist**: Knowing the latitude and longitude, calculate the spherical distance between two points on the earth.
+
+### 3D geometric
+
+#### Preparatory functions
+
+- **cross product**: Calculates the cross product of two vectors.
+- **dot product**: Calculates the dot product of two vectors.
+- **subtract**: Subtracts two vectors.
+- **pvec plane**: Calculates the normal vector of a plane using the cross product of two vectors formed from three points on the plane.
+- **pvec point**: Calculates the cross product of two vectors formed by three points in 3D space.
+- **distance3d**: Calculates the distance between two points.
+- **vlen**: Calculates the length of a vector.
+
 
 ## Usages
 
