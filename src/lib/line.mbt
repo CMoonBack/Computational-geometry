@@ -22,6 +22,23 @@ struct Point {
   mut y : Double
 }
 
+fn op_eq(self: Point, other: Point) -> Bool {
+  if self.x == other.x && self.y == other.y {
+    true
+  } else {
+    false
+  } 
+}
+
+fn op_add(self: Point, other: Point) -> Point {
+  {x : self.x + other.x, y : self.y + other.y}
+}
+
+fn op_sub(self: Point, other: Point) -> Point {
+  {x : self.x - other.x, y : self.y - other.y}
+}
+
+
 struct Line {
   mut a : Point
   b : Point
