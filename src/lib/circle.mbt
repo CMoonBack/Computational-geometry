@@ -172,7 +172,7 @@ fn dot_to_circle(c : Circle, p : Point) -> Point {
   let v : Point = p
   //p为圆心时，返回圆心本身
   if distance(p, c.c) < eps {
-    return p
+    return c.c
   }
 
   u.x = c.c.x + c.r * Double::abs(c.c.x - p.x) / distance(p, c.c)
@@ -243,18 +243,23 @@ fn dot_to_circle(c : Circle, p : Point) -> Point {
 /// }
 /// ```
 fn intersection_line_circle(c : Circle, l1 : Point, l2 : Point) -> Array[Point] {
-  let mut p : Point = c.c
-  p.x = p.x + l1.y - l2.y
-  p.y = p.y + l2.x - l1.x
-  p = intersection(p, c.c, l1, l2)
-  let t : Double = Double::sqrt(c.r * c.r - distance(p, c.c) * distance(p, c.c)) / distance(l1, l2)
-  let ans1 : Point = p
-  let ans2 : Point = p
-  ans1.x = p.x + (l2.x - l1.x) * t
-  ans1.y = p.y + (l2.y - l1.y) * t
-  ans2.x = p.x - (l2.x - l1.x) * t
-  ans2.y = p.y - (l2.y - l1.y) * t
-  [ans1, ans2]
+  let dist = dis_p_to_line(c.c, l1, l2)
+  if dist > c.r + eps {
+    return []
+  }
+
+  let d = distance(l1, l2)
+  let proj = ((c.c.x - l1.x) * (l2.x - l1.x) + (c.c.y - l1.y) * (l2.y - l1.y)) / (d * d)
+  let closest = new_point(l1.x + proj * (l2.x - l1.x), l1.y + proj * (l2.y - l1.y))
+  let h = Double::sqrt(c.r * c.r - dist * dist) / d
+
+  let offset_x = h * (l2.y - l1.y)
+  let offset_y = h * (l1.x - l2.x)
+
+  let p1 = new_point(closest.x + offset_x, closest.y + offset_y)
+  let p2 = new_point(closest.x - offset_x, closest.y - offset_y)
+
+  [p1, p2]
 }
 
 ///|
