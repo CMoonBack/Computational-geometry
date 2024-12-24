@@ -44,7 +44,7 @@ struct plane3d {
 /// }
 /// ```
 fn mul3d(u : Point3d, v : Point3d) -> Point3d {
-  let ret : Point3d = new_point3d(1, 1, 1)
+  let ret : Point3d = new_point3d(0.0, 0.0, 0.0)
   ret.x = u.y * v.z - u.z * v.y
   ret.y = u.z * v.x - u.x * v.z
   ret.z = u.x * v.y - u.y * v.x
@@ -112,7 +112,7 @@ fn dot3d(u : Point3d, v : Point3d) -> Double {
 /// }
 /// ```
 fn subt(u : Point3d, v : Point3d) -> Point3d {
-  let ret : Point3d = new_point3d(1, 1, 1)
+  let ret : Point3d = new_point3d(0.0, 0.0, 0.0)
   ret.x = u.x - v.x
   ret.y = u.y - v.y
   ret.z = u.z - v.z
