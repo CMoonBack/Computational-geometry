@@ -76,9 +76,8 @@ fn Point3d::dots_inline(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
 ///   inspect!(dots_onplane(p1, p2, p3), content="false")
 /// }
 /// ```
-fn dots_onplane(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
-  Point3d::dots_inline(p1, p2, p3) && 
-  dot3d(subt(p1, p2), pvec_plane(new_plane_3d(p1, p2, p3))) < eps
+fn dots_onplane(p1 : Point3d, p2 : Point3d, p3 : Point3d, p4 : Point3d) -> Bool {
+  iszero(dot3d(pvec_point(p1, p2, p3), subt(p1, p4)))
 }
 
 ///|

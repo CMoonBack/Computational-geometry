@@ -156,3 +156,45 @@ fn Point3d::same_side_plane(p1 : Point3d, p2 : Point3d, s : Plane3d) -> Bool {
 fn Point3d::opposite_side_plane(p1 : Point3d, p2 : Point3d, s : Plane3d) -> Bool {
   dot3d(pvec_plane(s), subt(p1, s.a)) * dot3d(pvec_plane(s), subt(p2, s.a)) < -eps
 }
+
+fn Point3d::opposite_side_plane2(p1 : Point3d, p2 : Point3d, s1 : Point3d, s2 : Point3d, s3 : Point3d) -> Bool {
+  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) * dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) < -eps
+}
+///|
+/// Determines whether two points lie on the same side of a plane in 3D space
+/// defined by three points. The determination is made by comparing the dot
+/// products of the plane's normal vector with vectors from a point on the plane
+/// to each test point.
+///
+/// Parameters:
+///
+/// * `first_point` : The first point to test, represented as a `Point3d` with x,
+/// y, and z coordinates.
+/// * `second_point` : The second point to test, represented as a `Point3d` with
+/// x, y, and z coordinates.
+/// * `plane_point1` : The first point defining the plane.
+/// * `plane_point2` : The second point defining the plane.
+/// * `plane_point3` : The third point defining the plane.
+///
+/// Returns `true` if both points lie on the same side of the plane, `false`
+/// otherwise.
+///
+/// Example:
+///
+/// ```moonbit
+/// test "Point3d::same_side_plane2" {
+///   let p1 = new_point3d(0.0, 0.0, 1.0)
+///   let p2 = new_point3d(1.0, 1.0, 1.0)
+///   let plane_pt1 = new_point3d(0.0, 0.0, 0.0)
+///   let plane_pt2 = new_point3d(1.0, 0.0, 0.0)
+///   let plane_pt3 = new_point3d(0.0, 1.0, 0.0)
+///   // Both points are above the xy-plane
+///   inspect!(
+///     Point3d::same_side_plane2(p1, p2, plane_pt1, plane_pt2, plane_pt3),
+///     content="true",
+///   )
+/// }
+/// ```
+fn Point3d::same_side_plane2(p1 : Point3d, p2 : Point3d, s1 : Point3d, s2 : Point3d, s3 : Point3d) -> Bool {
+  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) * dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) > eps
+}
