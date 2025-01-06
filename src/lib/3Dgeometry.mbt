@@ -9,7 +9,7 @@ struct Line3d {
   b : Point3d
 }
 
-struct plane3d {
+struct Plane3d {
   a : Point3d
   b : Point3d
   c : Point3d
@@ -149,7 +149,7 @@ fn subt(u : Point3d, v : Point3d) -> Point3d {
 ///   inspect!(normal.z, content="1.0")
 /// }
 /// ```
-fn pvec_plane(s : plane3d) -> Point3d {
+fn pvec_plane(s : Plane3d) -> Point3d {
   mul3d(subt(s.b, s.a), subt(s.c, s.a))
 }
 
@@ -358,7 +358,7 @@ pub fn new_plane_3d(
   a_ : Point3d,
   b_ : Point3d,
   c_ : Point3d
-) -> plane3d {
-  let ans : plane3d  = {a : a_, b : b_, c : c_}
+) -> Plane3d {
+  let ans : Plane3d  = {a : a_, b : b_, c : c_}
   ans
 }
