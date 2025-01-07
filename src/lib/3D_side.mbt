@@ -34,7 +34,8 @@
 /// }
 /// ```
 fn Point3d::same_side_seg(p1 : Point3d, p2 : Point3d, l : Line3d) -> Bool {
-  dot3d(subt(p1, l.a), subt(l.a, l.b)) * dot3d(subt(p2, l.a), subt(l.a, l.b)) > eps
+  dot3d(subt(p1, l.a), subt(l.a, l.b)) * dot3d(subt(p2, l.a), subt(l.a, l.b)) >
+  eps
 }
 
 ///|
@@ -72,7 +73,8 @@ fn Point3d::same_side_seg(p1 : Point3d, p2 : Point3d, l : Line3d) -> Bool {
 /// }
 /// ```
 fn Point3d::opposite_side_seg(p1 : Point3d, p2 : Point3d, l : Line3d) -> Bool {
-  dot3d(subt(p1, l.a), subt(l.a, l.b)) * dot3d(subt(p2, l.a), subt(l.a, l.b)) < -eps
+  dot3d(subt(p1, l.a), subt(l.a, l.b)) * dot3d(subt(p2, l.a), subt(l.a, l.b)) <
+  -eps
 }
 
 ///|
@@ -119,7 +121,8 @@ fn Point3d::opposite_side_seg(p1 : Point3d, p2 : Point3d, l : Line3d) -> Bool {
 /// }
 /// ```
 fn Point3d::same_side_plane(p1 : Point3d, p2 : Point3d, s : Plane3d) -> Bool {
-  dot3d(pvec_plane(s), subt(p1, s.a)) * dot3d(pvec_plane(s), subt(p2, s.a)) > eps
+  dot3d(pvec_plane(s), subt(p1, s.a)) * dot3d(pvec_plane(s), subt(p2, s.a)) >
+  eps
 }
 
 ///|
@@ -153,13 +156,28 @@ fn Point3d::same_side_plane(p1 : Point3d, p2 : Point3d, s : Plane3d) -> Bool {
 ///   inspect!(Point3d::opposite_side_plane(p1, p2, plane), content="true")
 /// }
 /// ```
-fn Point3d::opposite_side_plane(p1 : Point3d, p2 : Point3d, s : Plane3d) -> Bool {
-  dot3d(pvec_plane(s), subt(p1, s.a)) * dot3d(pvec_plane(s), subt(p2, s.a)) < -eps
+fn Point3d::opposite_side_plane(
+  p1 : Point3d,
+  p2 : Point3d,
+  s : Plane3d
+) -> Bool {
+  dot3d(pvec_plane(s), subt(p1, s.a)) * dot3d(pvec_plane(s), subt(p2, s.a)) <
+  -eps
 }
 
-fn Point3d::opposite_side_plane2(p1 : Point3d, p2 : Point3d, s1 : Point3d, s2 : Point3d, s3 : Point3d) -> Bool {
-  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) * dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) < -eps
+///|
+fn Point3d::opposite_side_plane2(
+  p1 : Point3d,
+  p2 : Point3d,
+  s1 : Point3d,
+  s2 : Point3d,
+  s3 : Point3d
+) -> Bool {
+  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) *
+  dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) <
+  -eps
 }
+
 ///|
 /// Determines whether two points lie on the same side of a plane in 3D space
 /// defined by three points. The determination is made by comparing the dot
@@ -195,6 +213,14 @@ fn Point3d::opposite_side_plane2(p1 : Point3d, p2 : Point3d, s1 : Point3d, s2 : 
 ///   )
 /// }
 /// ```
-fn Point3d::same_side_plane2(p1 : Point3d, p2 : Point3d, s1 : Point3d, s2 : Point3d, s3 : Point3d) -> Bool {
-  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) * dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) > eps
+fn Point3d::same_side_plane2(
+  p1 : Point3d,
+  p2 : Point3d,
+  s1 : Point3d,
+  s2 : Point3d,
+  s3 : Point3d
+) -> Bool {
+  dot3d(pvec_point(s1, s2, s3), subt(p1, s1)) *
+  dot3d(pvec_point(s1, s2, s3), subt(p2, s1)) >
+  eps
 }

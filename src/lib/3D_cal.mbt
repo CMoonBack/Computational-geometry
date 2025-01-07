@@ -36,10 +36,7 @@
 /// }
 /// ```
 fn p_to_plane(p : Point3d, s : Plane3d) -> Double {
-  Double::abs(
-      dot3d(pvec_plane(s), subt(p, s.a))
-    ) / 
-      vlen(pvec_plane(s))
+  Double::abs(dot3d(pvec_plane(s), subt(p, s.a))) / vlen(pvec_plane(s))
 }
 
 ///|
@@ -76,11 +73,8 @@ fn p_to_plane(p : Point3d, s : Plane3d) -> Double {
 /// ```
 fn line_to_line(u : Line3d, v : Line3d) -> Double {
   let n : Point3d = mul3d(subt(u.b, u.a), subt(v.b, v.a))
-  Double::abs(
-      dot3d(n, subt(u.a, v.a))
-    ) /
-      vlen(n)
-} 
+  Double::abs(dot3d(n, subt(u.a, v.a))) / vlen(n)
+}
 
 ///|
 /// Calculates the cosine of the angle between two line segments in 3D space.
@@ -120,7 +114,7 @@ fn line_to_line(u : Line3d, v : Line3d) -> Double {
 /// ```
 fn angle_cos_line(u : Line3d, v : Line3d) -> Double {
   dot3d(subt(u.b, u.a), subt(v.b, v.a)) /
-    (vlen(subt(u.b, u.a)) * vlen(subt(v.b, v.a)))
+  (vlen(subt(u.b, u.a)) * vlen(subt(v.b, v.a)))
 }
 
 ///|
@@ -156,7 +150,7 @@ fn angle_cos_line(u : Line3d, v : Line3d) -> Double {
 /// ```
 fn angle_cos_plane(u : Line3d, v : Plane3d) -> Double {
   dot3d(pvec_plane(v), subt(u.b, u.a)) /
-    (vlen(pvec_plane(v)) * vlen(subt(u.b, u.a)))
+  (vlen(pvec_plane(v)) * vlen(subt(u.b, u.a)))
 }
 
 ///|
@@ -195,5 +189,5 @@ fn angle_cos_plane(u : Line3d, v : Plane3d) -> Double {
 /// ```
 fn angle_sin_line_plane(l : Line3d, s : Plane3d) -> Double {
   dot3d(subt(l.b, l.a), pvec_plane(s)) /
-    (vlen(subt(l.b, l.a)) * vlen(pvec_plane(s)))
+  (vlen(subt(l.b, l.a)) * vlen(pvec_plane(s)))
 }

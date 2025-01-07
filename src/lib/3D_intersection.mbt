@@ -30,15 +30,10 @@
 /// ```
 fn intersection_line(u : Line3d, v : Line3d) -> Point3d {
   let ret : Point3d = u.a
-  let t : Double = 
-    (
-      (u.a.x - v.a.x) * (v.a.y - v.b.y) - 
-      (u.a.y - v.a.y) * (v.a.x - v.b.x)
-    ) / 
-    (
-      (u.a.x - u.b.x) * (v.a.y - v.b.y) - 
-      (u.a.y - u.b.y) * (v.a.x - v.b.x)
-    )
+  let t : Double = (
+      (u.a.x - v.a.x) * (v.a.y - v.b.y) - (u.a.y - v.a.y) * (v.a.x - v.b.x)
+    ) /
+    ((u.a.x - u.b.x) * (v.a.y - v.b.y) - (u.a.y - u.b.y) * (v.a.x - v.b.x))
   ret.x += t * (u.b.x - u.a.x)
   ret.y += t * (u.b.y - u.a.y)
   ret.z += t * (u.b.z - u.a.z)
@@ -79,8 +74,7 @@ fn intersection_line(u : Line3d, v : Line3d) -> Point3d {
 /// ```
 fn intersection_line_plane(l : Line3d, s : Plane3d) -> Point3d {
   let ret : Point3d = pvec_plane(s)
-  let t : Double =
-    (
+  let t : Double = (
       ret.x * (s.a.x - l.a.x) +
       ret.y * (s.a.y - l.a.y) +
       ret.z * (s.a.z - l.a.z)
@@ -136,18 +130,15 @@ fn intersection_line_plane(l : Line3d, s : Plane3d) -> Point3d {
 fn intersection_plane_plane(u : Plane3d, v : Plane3d) -> Line3d {
   let mut a : Point3d = new_point3d(0.0, 0.0, 0.0)
   let mut b : Point3d = new_point3d(0.0, 0.0, 0.0)
-  
   if parallel_line_plane(new_line3d(v.a, v.b), u) {
     a = intersection_line_plane(new_line3d(v.b, v.c), u)
   } else {
     a = intersection_line_plane(new_line3d(v.a, v.b), u)
   }
-
   if parallel_line_plane(new_line3d(v.c, v.a), u) {
     b = intersection_line_plane(new_line3d(v.b, v.c), u)
   } else {
     b = intersection_line_plane(new_line3d(v.c, v.a), u)
   }
-
   new_line3d(a, b)
 }

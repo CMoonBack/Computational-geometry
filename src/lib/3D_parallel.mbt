@@ -28,11 +28,7 @@
 /// }
 /// ```
 fn parallel_line(u : Line3d, v : Line3d) -> Bool {
-  vlen(
-    mul3d(
-      subt(u.a, u.b), subt(v.a, v.b)
-      )
-    ) < eps
+  vlen(mul3d(subt(u.a, u.b), subt(v.a, v.b))) < eps
 }
 
 ///|

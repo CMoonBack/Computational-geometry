@@ -39,13 +39,15 @@ fn intersect_seg_in(u : Line3d, v : Line3d) -> Bool {
   if not(dots_onplane(u.a, u.b, v.a, v.b)) {
     return true
   }
-  if not(Point3d::dots_inline(u.a, u.b, v.a) || Point3d::dots_inline(u.a, u.b, v.b)) {
+  if not(
+      Point3d::dots_inline(u.a, u.b, v.a) || Point3d::dots_inline(u.a, u.b, v.b),
+    ) {
     return not(same_side_seg(u.a, u.b, v) && not(same_side_seg(v.a, v.b, u)))
   }
-  return Point3d::dots_online_in(u.a, v.a, v.b) || 
-  Point3d::dots_online_in(u.b, v.a, v.b) || 
-  Point3d::dots_online_in(v.a, u.a, u.b) || 
-  Point3d::dots_online_in(v.b, u.a, u.b)
+  return Point3d::dots_online_in(u.a, v.a, v.b) ||
+    Point3d::dots_online_in(u.b, v.a, v.b) ||
+    Point3d::dots_online_in(v.a, u.a, u.b) ||
+    Point3d::dots_online_in(v.b, u.a, u.b)
 }
 
 ///|
@@ -126,8 +128,8 @@ fn intersect_seg_ex(u : Line3d, v : Line3d) -> Bool {
 /// }
 /// ```
 fn intersect_triangle_in(l : Line3d, s : Plane3d) -> Bool {
-  not(same_side_plane(l.a, l.b, s)) && 
-  not(same_side_plane2(s.a, s.b, l.a, l.b, s.c)) && 
+  not(same_side_plane(l.a, l.b, s)) &&
+  not(same_side_plane2(s.a, s.b, l.a, l.b, s.c)) &&
   not(same_side_plane2(s.b, s.c, l.a, l.b, s.a)) &&
   not(same_side_plane2(s.c, s.a, l.a, l.b, s.b))
 }

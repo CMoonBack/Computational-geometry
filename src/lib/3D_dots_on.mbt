@@ -115,13 +115,9 @@ fn dots_onplane(p1 : Point3d, p2 : Point3d, p3 : Point3d, p4 : Point3d) -> Bool 
 /// }
 /// ```
 fn Point3d::dots_online_in(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
-  iszero(
-    vlen(
-      mul3d(subt(p1, p2), subt(p2, p3))
-      )
-    ) && 
-  (p1.x - p2.x) * (p3.x - p2.x) < eps && 
-  (p1.y - p2.y) * (p3.y - p2.y) < eps && 
+  iszero(vlen(mul3d(subt(p1, p2), subt(p2, p3)))) &&
+  (p1.x - p2.x) * (p3.x - p2.x) < eps &&
+  (p1.y - p2.y) * (p3.y - p2.y) < eps &&
   (p1.z - p2.z) * (p3.z - p2.z) < eps
 }
 
@@ -160,11 +156,9 @@ fn Point3d::dots_online_in(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
 /// }
 /// ```
 fn Point3d::dots_online_ex(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
-  Point3d::dots_online_in(p1, p2, p3) &&
-  not(iszero(p1.x - p2.x)) || 
-  not(iszero(p1.y - p2.y)) || 
-  not(iszero(p1.z - p2.z)) &&
-  not(iszero(p1.x - p3.x)) ||
+  (Point3d::dots_online_in(p1, p2, p3) && not(iszero(p1.x - p2.x))) ||
+  not(iszero(p1.y - p2.y)) ||
+  (not(iszero(p1.z - p2.z)) && not(iszero(p1.x - p3.x))) ||
   not(iszero(p1.y - p3.y)) ||
   not(iszero(p1.z - p3.z))
 }
@@ -200,9 +194,9 @@ fn Point3d::dots_online_ex(p1 : Point3d, p2 : Point3d, p3 : Point3d) -> Bool {
 /// ```
 fn dot_inplane_in(p : Point3d, s : Plane3d) -> Bool {
   iszero(
-    vlen(mul3d(subt(s.a, s.b), subt(s.a, s.c))) - 
-    vlen(mul3d(subt(s.a, p), subt(s.b, p))) - 
+    vlen(mul3d(subt(s.a, s.b), subt(s.a, s.c))) -
+    vlen(mul3d(subt(s.a, p), subt(s.b, p))) -
     vlen(mul3d(subt(s.a, p), subt(s.c, p))) -
-    vlen(mul3d(subt(s.b, p), subt(s.c, p)))
-    )
+    vlen(mul3d(subt(s.b, p), subt(s.c, p))),
+  )
 }

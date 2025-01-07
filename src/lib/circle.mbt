@@ -1,6 +1,7 @@
+///|
 struct Circle {
-    c : Point
-    r : Double
+  c : Point
+  r : Double
 }
 
 ///|
@@ -79,7 +80,7 @@ fn intersect_line_circle(l : Line, c : Circle) -> Bool {
 ///   inspect!(intersect_seg_circle(start, end, circle), content="true")
 /// }
 /// ```
-fn intersect_seg_circle(l1 :Point, l2 : Point, c : Circle) -> Bool {
+fn intersect_seg_circle(l1 : Point, l2 : Point, c : Circle) -> Bool {
   let t1 : Double = distance(c.c, l1) - c.r
   let t2 : Double = distance(c.c, l2) - c.r
   let t : Point = c.c
@@ -88,7 +89,8 @@ fn intersect_seg_circle(l1 :Point, l2 : Point, c : Circle) -> Bool {
   }
   t.x = t.x + l1.y - l2.y
   t.y = t.y + l2.x - l1.x
-  mul(l1, c.c, t) * mul(l2, c.c, t) < eps && dis_p_to_line(c.c, l1, l2) < c.r + eps
+  mul(l1, c.c, t) * mul(l2, c.c, t) < eps &&
+  dis_p_to_line(c.c, l1, l2) < c.r + eps
 }
 
 ///|
@@ -129,7 +131,8 @@ fn intersect_seg_circle(l1 :Point, l2 : Point, c : Circle) -> Bool {
 /// }
 /// ```
 fn intersect_circle_circle(c1 : Circle, c2 : Circle) -> Bool {
-  distance(c1.c, c2.c) < c1.r + c2.r + eps && distance(c1.c, c2.c) > Double::abs(c1.r - c2.r) - eps
+  distance(c1.c, c2.c) < c1.r + c2.r + eps &&
+  distance(c1.c, c2.c) > Double::abs(c1.r - c2.r) - eps
 }
 
 ///|
@@ -174,7 +177,6 @@ fn dot_to_circle(c : Circle, p : Point) -> Point {
   if distance(p, c.c) < eps {
     return c.c
   }
-
   u.x = c.c.x + c.r * Double::abs(c.c.x - p.x) / distance(p, c.c)
   let t = c.c.y + c.r * Double::abs(c.c.y - p.y) / distance(p, c.c)
   if t < 0 {
@@ -182,7 +184,6 @@ fn dot_to_circle(c : Circle, p : Point) -> Point {
   } else {
     u.y = 1
   }
-
   v.x = c.c.x - c.r * Double::abs(c.c.x - p.x) / distance(p, c.c)
   let tt = c.c.y - c.r * Double::abs(c.c.y - p.y) / distance(p, c.c)
   if tt < 0 {
@@ -190,7 +191,6 @@ fn dot_to_circle(c : Circle, p : Point) -> Point {
   } else {
     v.y = 1
   }
-
   if distance(p, u) < distance(p, v) {
     return u
   } else {
@@ -247,18 +247,18 @@ fn intersection_line_circle(c : Circle, l1 : Point, l2 : Point) -> Array[Point] 
   if dist > c.r + eps {
     return []
   }
-
   let d = distance(l1, l2)
-  let proj = ((c.c.x - l1.x) * (l2.x - l1.x) + (c.c.y - l1.y) * (l2.y - l1.y)) / (d * d)
-  let closest = new_point(l1.x + proj * (l2.x - l1.x), l1.y + proj * (l2.y - l1.y))
+  let proj = ((c.c.x - l1.x) * (l2.x - l1.x) + (c.c.y - l1.y) * (l2.y - l1.y)) /
+    (d * d)
+  let closest = new_point(
+    l1.x + proj * (l2.x - l1.x),
+    l1.y + proj * (l2.y - l1.y),
+  )
   let h = Double::sqrt(c.r * c.r - dist * dist) / d
-
   let offset_x = h * (l2.y - l1.y)
   let offset_y = h * (l1.x - l2.x)
-
   let p1 = new_point(closest.x + offset_x, closest.y + offset_y)
   let p2 = new_point(closest.x - offset_x, closest.y - offset_y)
-
   [p1, p2]
 }
 
@@ -307,7 +307,11 @@ fn intersection_line_circle(c : Circle, l1 : Point, l2 : Point) -> Array[Point] 
 fn intersection_circle_circle(c1 : Circle, c2 : Circle) -> Array[Point] {
   let u : Point = c1.c
   let v : Point = c2.c
-  let t : Double = (1.0 + (c1.r * c1.r - c2.r * c2.r) / distance(c1.c, c2.c) / distance(c1.c, c2.c)) / 2.0
+  let t : Double = (
+      1.0 +
+      (c1.r * c1.r - c2.r * c2.r) / distance(c1.c, c2.c) / distance(c1.c, c2.c)
+    ) /
+    2.0
   u.x = c1.c.x + (c2.c.x - c1.c.x) * t
   u.y = c1.c.y + (c2.c.y - c1.c.y) * t
   v.x = u.x + c1.c.y - c2.c.y

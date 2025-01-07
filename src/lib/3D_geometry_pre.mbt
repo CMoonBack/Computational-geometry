@@ -1,14 +1,17 @@
+///|
 struct Point3d {
-    mut x : Double
-    mut y : Double
-    mut z : Double
+  mut x : Double
+  mut y : Double
+  mut z : Double
 }
 
+///|
 struct Line3d {
   a : Point3d
   b : Point3d
 }
 
+///|
 struct Plane3d {
   a : Point3d
   b : Point3d
@@ -218,12 +221,10 @@ fn pvec_point(s1 : Point3d, s2 : Point3d, s3 : Point3d) -> Point3d {
 /// ```
 fn distance3d(p1 : Point3d, p2 : Point3d) -> Double {
   Double::sqrt(
-    (
-      (p1.x - p2.x) * (p1.x - p2.x) + 
-      (p1.y - p2.y) * (p1.y - p2.y) + 
-      (p1.z - p2.z) * (p1.z - p2.z)
-      )
-    )
+    (p1.x - p2.x) * (p1.x - p2.x) +
+    (p1.y - p2.y) * (p1.y - p2.y) +
+    (p1.z - p2.z) * (p1.z - p2.z),
+  )
 }
 
 ///|
@@ -255,6 +256,7 @@ fn distance3d(p1 : Point3d, p2 : Point3d) -> Double {
 fn vlen(p : Point3d) -> Double {
   Double::sqrt(p.x * p.x + p.y * p.y + p.z * p.z)
 }
+
 ///|
 /// Creates a new point in a 3D coordinate system with the specified x, y, and z
 /// coordinates.
@@ -284,12 +286,8 @@ fn vlen(p : Point3d) -> Double {
 ///   inspect!(p.z, content="-5.0")
 /// }
 /// ```
-pub fn new_point3d(
-  x_ : Double,
-  y_ : Double,
-  z_ : Double
-) -> Point3d {
-  let ans = {x : x_, y : y_, z : z_}
+pub fn new_point3d(x_ : Double, y_ : Double, z_ : Double) -> Point3d {
+  let ans = { x: x_, y: y_, z: z_ }
   ans
 }
 
@@ -318,11 +316,8 @@ pub fn new_point3d(
 ///   inspect!(line.b.z, content="6.0")
 /// }
 /// ```
-pub fn new_line3d(
-  a_ : Point3d,
-  b_ : Point3d
-) -> Line3d {
-  let ans : Line3d = {a : a_, b : b_}
+pub fn new_line3d(a_ : Point3d, b_ : Point3d) -> Line3d {
+  let ans : Line3d = { a: a_, b: b_ }
   ans
 }
 
@@ -354,11 +349,7 @@ pub fn new_line3d(
 ///   inspect!(plane.c.y, content="1.0")
 /// }
 /// ```
-pub fn new_plane_3d(
-  a_ : Point3d,
-  b_ : Point3d,
-  c_ : Point3d
-) -> Plane3d {
-  let ans : Plane3d  = {a : a_, b : b_, c : c_}
+pub fn new_plane_3d(a_ : Point3d, b_ : Point3d, c_ : Point3d) -> Plane3d {
+  let ans : Plane3d = { a: a_, b: b_, c: c_ }
   ans
 }

@@ -28,7 +28,7 @@
 ///   inspect!(perpendicular_line(l1, l2), content="false")
 /// }
 /// ```
-fn perpendicular_line(u : Line3d, v : Line3d) ->Bool {
+fn perpendicular_line(u : Line3d, v : Line3d) -> Bool {
   iszero(dot3d(subt(u.a, u.b), subt(v.a, v.b)))
 }
 
@@ -81,6 +81,6 @@ fn perpendicular_line(u : Line3d, v : Line3d) ->Bool {
 ///   inspect!(perpendicular_plane(plane1, plane2), content="false")
 /// }
 /// ```
-fn perpendicular_plane(u : Plane3d, v : Plane3d) ->Bool {
+fn perpendicular_plane(u : Plane3d, v : Plane3d) -> Bool {
   iszero(dot3d(pvec_plane(u), pvec_plane(v)))
 }
