@@ -68,10 +68,48 @@ convex hull correlation, 3D geometric correlation, etc.
 - **distance3d**: Calculates the distance between two points.
 - **vlen**: Calculates the length of a vector.
 
+#### Dots on
+
+Including the determination of whether three points are collinear, 
+whether four points are coplanar, whether a point lies on a segment, 
+and whether a point lies on a spatial triangle.
+
+#### Side
+
+Including the judgment of whether 
+two points are on the same side/different sides of a line segment, 
+and determining whether two points are on the same side/different sides of a plane.
+
+#### Parallel
+
+This includes determining whether two lines are parallel, 
+whether two planes are parallel, 
+and whether a line and a plane are parallel.
+
+#### Perpendicular
+
+This includes determining whether two lines are perpendicular, 
+and whether two planes are perpendicular.
+
+#### Intersect
+
+This includes determining whether two segments intersect, 
+and whether a segment intersects with a triangle.
+
+#### Intersection
+
+It includes calculating the intersection of two straight lines, 
+calculating the intersection of a straight line and a plane, 
+and calculating the intersection of two planes.
+
+#### Calculations
+
+It includes calculating the distance from the point to the straight line, the distance from the calculated point to the plane, the distance from the straight line to the straight line, the cos value of the angle between two straight lines, the cos value of the angle between two square meters, and the sin value of the angle between the straight line and the plane.
+
 
 ## Usages
 
-For how to use,see the [core](https://github.com/CMoonBack/Computational-geometry/tree/main/src/lib) in the repository.
+For how to use,see the [code](https://github.com/CMoonBack/Computational-geometry/tree/main/src/lib) in the repository.
 
 Specific usages are being written.
 
